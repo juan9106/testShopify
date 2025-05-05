@@ -1,0 +1,49 @@
+<script>
+  'use strict';
+  const WSEvents = {
+    productTemplate: {
+      onAddToCart: () => {
+        try {
+          document.querySelector('[data-pf-type="ProductATC2"]').addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const products = window.__pageflyProducts;
+            const productId = Object.keys(products)[0];
+            const variants = products[productId].variants;
+            const membershipVariant = variants.find((variant) => variant.name.includes("[MEMBERSHIP PRICE]"));
+
+            console.log({membershipVariant})
+            setTimeout(() => {
+              //WSFunctions.cart.showAjaxCart(true, false);
+              let formData = {
+               'items': [{
+                'id': membershipVariant.id,
+                'quantity': 1
+                }]
+              };
+              
+              fetch('/cart/add.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+              })
+              .then(response => {
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+            }, 500);
+          });
+        } catch (error) {
+          console.log('❌ [WS] WSEvents.productTemplate.onAddToCart', {
+            error,
+          });
+        }
+      }
+    }
+  }
+</script>

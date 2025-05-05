@@ -1,0 +1,37 @@
+<div>Test</div>
+{% case template %}
+  {% when "product.pf-382b4452" %}
+    {% render 'ws-events' %}
+    <script>
+      (function () {
+        document.addEventListener("DOMContentLoaded", async () => {
+          //const customerTags = "{{ customer.tags }}";
+          //console.log({ customerTags });
+          //console.log('Testing')
+          WSEvents.productTemplate.onAddToCart();
+        });
+      })();
+    </script>
+  {% when "product.pf-2b4452dc" %}
+    {% render 'ws-events' %}
+    <script>
+      (function () {
+        document.addEventListener("DOMContentLoaded", async () => {
+          //const customerTags = "{{ customer.tags }}";
+          //console.log({ customerTags });
+          const addToCartButton = document.querySelector('[data-pf-type="ProductATC2"]');
+          if (!addToCartButton) {
+            console.warn("❌ [WS] No se encontró el botón de agregar al carrito.");
+            return;
+          }
+        
+          // Clona el botón y reemplázalo para eliminar eventos previos
+          const newButton = addToCartButton.cloneNode(true);
+          addToCartButton.replaceWith(newButton);
+          
+          console.log('Testing')
+          WSEvents.productTemplate.onAddToCart();
+        });
+      })();
+    </script>
+{% endcase %}
