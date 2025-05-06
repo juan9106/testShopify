@@ -66,6 +66,7 @@
                     {% assign sortedProperties = item.properties | sort %}
                     {% if property_size > 0 %}
                       {% for p in sortedProperties %}
+                        <p>Testing: {{ p }}</p>
                         {%- if p.first.first == '_' -%}{%- continue -%}{%- endif -%}
                         {% assign first_character_in_key = p.first | truncate: 1, '' %}
                         {% unless p.last == blank or p.first contains '_mczr' or first_character_in_key == '_' %}
