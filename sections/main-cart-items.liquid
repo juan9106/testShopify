@@ -65,7 +65,7 @@
                     {% assign property_size = item.properties | size %}
                     {% assign sortedProperties = item.properties | sort %}
                     {% if property_size > 0 %}
-                      {% for p in sortedProperties %}
+                      {% for p in item.properties %}
                         <p>Testing: {{ p }}</p>
                         {%- if p.first.first == '_' -%}{%- continue -%}{%- endif -%}
                         {% assign first_character_in_key = p.first | truncate: 1, '' %}
