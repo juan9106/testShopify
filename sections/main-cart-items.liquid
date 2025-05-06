@@ -66,10 +66,11 @@
                     {% assign property_keys = item.properties | keys | sort %}
                     {% if property_size > 0 %}
                       {% for p in property_keys %}
+                        {% assign value = item.properties[key] %}
                         {%- if p.first.first == '_' -%}{%- continue -%}{%- endif -%}
                         {% assign first_character_in_key = p.first | truncate: 1, '' %}
                         {% unless p.last == blank or p.first contains '_mczr' or first_character_in_key == '_' %}
-                          <strong>{{ p.f }}</strong>:
+                          <strong>{{ p.first }}</strong>:
                           {% if p.last contains '/uploads/' %}
                             <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
                           {% else %}
